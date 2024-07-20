@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İtiraf Sayfası</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #b3b3ff; /* Arka plan rengi */
+            margin: 0;
+        }
+        .container {
+            background-color: rgb(245, 245, 255);
+            padding: 50px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            text-align: center;
+            display: none; /* Başlangıçta formu gizle */
+        }
+        .container h1 {
+            margin-bottom: 20px;
+            color: black;
+            font-size: 24px;
+        }
+        .container input, .container textarea {
+            width: calc(100% - 22px); /* Padding ve border için */
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        .container button {
+            padding: 12px 25px;
+            background-color: #8080ff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .container button:hover {
+            background-color: #00001a;
+        }
+        /* Modal arka plan stili */
+        .modal {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(179, 179, 255, 0.8); /* Itiraf sayfası ile aynı arka plan rengi */
+            backdrop-filter: blur(10px);
+        }
+
+        /* Modal içeriği stili */
+        .modal-content {
+            background-color: #ffffff;
+            padding: 50px 25px;
+            border: 1px solid #ddd;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+        .modal-content input {
+            width: calc(100% - 24px); /* Padding ve border için */
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        .modal-content button {
+            width: calc(100% - 24px); /* Input ile aynı genişlikte */
+            padding: 12px;
+            background-color: #8080ff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .modal-content button:hover {
+            background-color: #00001a;
+        }
+    </style>
+</head>
+<body>
+    <!-- Modal HTML -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <h2>Hoşgeldiniz!</h2>
+            <p>Adınızı öğrenebilir miyim?</p>
+            <input type="text" id="userName" placeholder="Adınızı buraya yazın...">
+            <button onclick="submitName()">Tamam</button>
+            <br><br>
+            <button onclick="skipName()">Adımı belirtmek istemiyorum</button>
+        </div>
+    </div>
+
+    <!-- Sayfa İçeriği -->
+    <div class="container" id="confessionContainer">
+        <h1 id="welcomeMessage">İtiraf Sayfasına Hoşgeldiniz</h1>
+        <form id="confessionForm">
+            <input type="email" id="email" name="email" placeholder="Göndermek istediğiniz mail adresi" required>
+            <textarea id="message" name="message" rows="10" placeholder="İtirafınızı buraya yazın..." required></textarea>
+            <button type="button" onclick="sendConfession()">Gönder</button>
+        </form>
+    </div>
+
+    <script>
+        var modal = document.getElementById("myModal");
+        var confessionContainer = document.getElementById("confessionContainer");
+        var welcomeMessage = document.getElementById("welcomeMessage");
+
+        // Modal'ı açma işlevi
+        window.onload = function() {
+            modal.style.display = "flex";
+        }
+
+        // Kullanıcının adını almak için
+        function submitName() {
+            var name = document.getElementById("userName").value;
+            if (name) {
+                // Kullanıcı adını içeren hoşgeldin mesajını güncelle
+                welcomeMessage.innerText = "İtiraf Sayfasına Hoşgeldin, " + name + "!";
+                confessionContainer.style.display = "block"; // Formu göster
+                modal.style.display = "none"; // Modal'ı kapat
+                document.getElementById("confessionForm").reset(); // Formu sıfırla
+            } else {
+                alert("Lütfen adınızı girin.");
+            }
+        }
+
+        // Ad belirtmek istemeyen kullanıcılar için
+        function skipName() {
+            modal.style.display = "none";
+            confessionContainer.style.display = "block";
+        }
+
+        function sendConfession() {
+            alert("İtirafınız gönderildi!");
+        }
+    </script>
+</body>
+</html>
